@@ -1,0 +1,112 @@
+name: Release
+
+on:
+  push:
+    tags: 
+      - 'v*'
+
+jobs:
+
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+    # Note this. We are going to use that in further jobs.
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    # - name: Get tag name
+    #   uses: olegtarasov/get-tag@v2.1
+    
+    # - name: Release
+    #   uses: "marvinpinto/action-automatic-releases@latest"
+    #   with:
+    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    #     prerelease: false
+    #     automatic_release_tag: "${{ env.GIT_TAG_NAME }}-${{ matrix.os }}"
+    #     title: "${{ env.GIT_TAG_NAME }}-${{ matrix.os }}"
+    #     files: ${{ env.CMD_NAME }}*.zip
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        # tag_name: ${{ env.GIT_TAG_NAME }}
+        # release_name: Release ${{ env.GIT_TAG_NAME }}
+        draft: false
+        prerelease: false
+
+  release_assets:
+    name: Release assets
+    needs: create_release # we need to know the upload URL
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: 
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    env:
+      CMD_NAME: keymouse
+      HAXE_VERSION: latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '8'
+
+    - name: Install lix, haxe ${{ env.HAXE_VERSION }} and dependencies
+      run: |
+            npm i -g lix
+            lix install haxe ${{ env.HAXE_VERSION }}
+            lix download
+
+    - name: Compile project
+      run: haxe build.hxml
+
+    - name: Install node.js dependencies
+      run: npm install
+
+    - name: Get the compiled RobotJs
+      run: |
+        mkdir -p robotjs/build/Release
+        cp node_modules/robotjs/build/Release/robotjs.node robotjs/build/Release
+        cp node_modules/robotjs/index.js robotjs
+      
+
+    - name: Package to release
+      run: |
+        mkdir -p tmp/${{ env.CMD_NAME }}
+        mv index.js tmp/${{ env.CMD_NAME }}
+        mv robotjs tmp/${{ env.CMD_NAME }}
+
+    - uses: papeloto/action-zip@v1
+      with:
+        files: tmp/
+        dest: ${{ env.CMD_NAME }}-${{ matrix.os }}.zip
+
+    - name: Upload release assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        # This is how it will be named on the release page. Put hatever name
+        # you like, remember that they need to be different for each platform.
+        # You can choose any build matrix parameters. For Rust I use the
+        # target triple.
+        asset_name: ${{ env.CMD_NAME }}-${{ matrix.os }}
+        # The path to the file you want to upload.
+        asset_path: ${{ env.CMD_NAME }}-${{ matrix.os }}.zip
+        # probably you will need to change it, but most likely you are
+        # uploading a binary file
+        asset_content_type: application/octet-stream
