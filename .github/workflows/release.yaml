@@ -89,7 +89,7 @@ jobs:
         # you like, remember that they need to be different for each platform.
         # You can choose any build matrix parameters. For Rust I use the
         # target triple.
-        asset_name: ${{ env.CMD_NAME }}-${{ matrix.os }}
+        asset_name: ${{ env.CMD_NAME }}-${{ matrix.os }}.zip
         # The path to the file you want to upload.
         asset_path: ${{ env.CMD_NAME }}-${{ matrix.os }}.zip
         # probably you will need to change it, but most likely you are
