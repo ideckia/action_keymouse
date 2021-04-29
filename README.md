@@ -17,7 +17,7 @@ Simulates some keyboard and mouse actions. Since this action uses [RobotJs](http
         "action": {
             "name": "keymouse",
             "props": {
-                "key": "delete",
+                "keyToTap": "delete",
                 "modifiers": "control,alt"
             }
         }
@@ -71,6 +71,39 @@ Simulates some keyboard and mouse actions. Since this action uses [RobotJs](http
             "props": {
                 "mouseClickButton": "left", // right, middle
                 "mouseDoubleClick": "true" // default is false
+            }
+        }
+    }
+}
+```
+* Drag mouse
+```json
+{
+    "state": {
+        "text": "drag mouse to 100x100",
+        "bgColor": "00ff00",
+        "action": {
+            "name": "keymouse",
+            "props": {
+                "mouseDrag": {
+                    "x": 100,
+                    "y": 100
+                }
+            }
+        }
+    }
+}
+```
+* Get mouse position
+```json
+{
+    "state": {
+        "text": "move mouse to 100x100",
+        "bgColor": "00ff00",
+        "action": {
+            "name": "keymouse",
+            "props": {
+                "getMousePos": true
             }
         }
     }
