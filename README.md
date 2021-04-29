@@ -1,8 +1,8 @@
-# Command for ideckia: KeyMouse
+# Action for ideckia: KeyMouse
 
 ## Definition
 
-Simulates some keyboard and mouse actions. Since this command uses [RobotJs](http://robotjs.io/) internally, potentially this can do anything RobotJs does, but it is not all implemented (yet).
+Simulates some keyboard and mouse actions. Since this action uses [RobotJs](http://robotjs.io/) internally, potentially this can do anything RobotJs does, but it is not all implemented (yet).
 
 ## Example in layout file
 
@@ -14,7 +14,7 @@ Simulates some keyboard and mouse actions. Since this command uses [RobotJs](htt
     "state": {
         "text": "ctrl+alt+del",
         "bgColor": "00ff00",
-        "cmd": {
+        "action": {
             "name": "keymouse",
             "props": {
                 "key": "delete",
@@ -30,7 +30,7 @@ Simulates some keyboard and mouse actions. Since this command uses [RobotJs](htt
     "state": {
         "text": "write sudo password",
         "bgColor": "00ff00",
-        "cmd": {
+        "action": {
             "name": "keymouse",
             "props": {
                 "typeString": "my_password"
@@ -48,7 +48,7 @@ Simulates some keyboard and mouse actions. Since this command uses [RobotJs](htt
     "state": {
         "text": "move mouse to 100x100",
         "bgColor": "00ff00",
-        "cmd": {
+        "action": {
             "name": "keymouse",
             "props": {
                 "moveMouseTo": {
@@ -66,7 +66,7 @@ Simulates some keyboard and mouse actions. Since this command uses [RobotJs](htt
     "state": {
         "text": "double click",
         "bgColor": "00ff00",
-        "cmd": {
+        "action": {
             "name": "keymouse",
             "props": {
                 "mouseClickButton": "left", // right, middle

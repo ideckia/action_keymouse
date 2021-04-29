@@ -1,6 +1,6 @@
 package;
 
-using api.IdeckiaCmdApi;
+using api.IdeckiaApi;
 
 typedef Props = {
 	@:editable("Key to be tapped.", null, [
@@ -28,7 +28,7 @@ typedef Props = {
 	var mouseDoubleClick:Bool;
 }
 
-class KeyMouse extends IdeckiaCmd {
+class KeyMouse extends IdeckiaAction {
 	public function execute():ItemState {
 		if (props.keyToTap != null)
 			RobotJs.keyTap(props.keyToTap, props.modifiers.split(',').map(m -> StringTools.trim(m)));
