@@ -37,7 +37,7 @@ typedef Props = {
 class KeyMouse extends IdeckiaAction {
 	public function execute(currentState:ItemState):js.lib.Promise<ItemState> {
 		if (props.keyToTap != null)
-			RobotJs.keyTap(props.keyToTap, props.modifiers.split(',').map(m -> StringTools.trim(m)));
+			RobotJs.keyTap(props.keyToTap.toLowerCase(), props.modifiers.split(',').map(m -> StringTools.trim(m)));
 
 		if (props.typeString != null)
 			RobotJs.typeString(props.typeString);
