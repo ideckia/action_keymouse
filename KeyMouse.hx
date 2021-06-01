@@ -52,7 +52,7 @@ class KeyMouse extends IdeckiaAction {
 			RobotJs.dragMouse(props.mouseDrag.x, props.mouseDrag.y);
 		
 		if (props.getMousePos)
-			server.log.info(RobotJs.getMousePos());
+			server.log(RobotJs.getMousePos());
 
 		return new js.lib.Promise((resolve, reject) -> resolve(currentState));
 	}
