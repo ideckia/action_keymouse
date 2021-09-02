@@ -64,8 +64,8 @@ jobs:
     - name: Get the compiled RobotJs
       run: |
         mkdir -p robotjs/build/Release
-        cp node_modules/robotjs/build/Release/robotjs.node robotjs/build/Release
-        cp node_modules/robotjs/index.js robotjs
+        cp node_modules/robotjs-node10/build/Release/robotjs.node robotjs/build/Release
+        cp node_modules/robotjs-node10/index.js robotjs
       
 
     - name: Package to release
