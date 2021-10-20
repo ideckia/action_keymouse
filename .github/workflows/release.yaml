@@ -72,6 +72,7 @@ jobs:
       run: |
         mkdir -p tmp/${{ env.CMD_NAME }}
         mv index.js tmp/${{ env.CMD_NAME }}
+        mv README.md ${{ env.CMD_NAME }}
         mv robotjs tmp/${{ env.CMD_NAME }}
 
     - uses: papeloto/action-zip@v1
