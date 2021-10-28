@@ -14,26 +14,21 @@ typedef Props = {
 
 	@:editable("Comma separated modifier(s) ('alt', 'command / win', 'control', 'shift')", '')
 	var modifiers:String;
-
 	@:editable("Types the screen like the keyboard would.", null)
 	var typeString:String;
-	
 	@:editable("Move mouse to position.", null)
 	var moveMouseTo:{x:Int, y:Int};
-	
 	@:editable("Click mouse button.", null, ['left', 'right', 'middle'])
 	var mouseClickButton:String;
-	
 	@:editable("Mouse double click. 'mouseClickButton' has to be set to this property work.", false)
 	var mouseDoubleClick:Bool;
-	
 	@:editable("Moves mouse to x, y instantly, with the mouse button held down.", null)
 	var mouseDrag:{x:Float, y:Float};
-	
 	@:editable("Gets the mouse coordinates and writes to the console.", false)
 	var getMousePos:Bool;
 }
 
+@:name('key-mouse')
 class KeyMouse extends IdeckiaAction {
 	public function execute(currentState:ItemState):js.lib.Promise<ItemState> {
 		if (props.keyToTap != null)
@@ -41,16 +36,16 @@ class KeyMouse extends IdeckiaAction {
 
 		if (props.typeString != null)
 			RobotJs.typeString(props.typeString);
-	
+
 		if (props.moveMouseTo != null)
 			RobotJs.moveMouse(props.moveMouseTo.x, props.moveMouseTo.y);
-		
+
 		if (props.mouseClickButton != null)
 			RobotJs.mouseClick(props.mouseClickButton, props.mouseDoubleClick);
-		
+
 		if (props.mouseDrag != null)
 			RobotJs.dragMouse(props.mouseDrag.x, props.mouseDrag.y);
-		
+
 		if (props.getMousePos)
 			server.log(RobotJs.getMousePos());
 
