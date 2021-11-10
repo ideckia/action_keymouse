@@ -28,7 +28,7 @@ typedef Props = {
 	var getMousePos:Bool;
 }
 
-@:name('key-mouse')
+@:name('keymouse')
 class KeyMouse extends IdeckiaAction {
 	public function execute(currentState:ItemState):js.lib.Promise<ItemState> {
 		if (props.keyToTap != null)
