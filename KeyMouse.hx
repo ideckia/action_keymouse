@@ -3,7 +3,7 @@ package;
 using api.IdeckiaApi;
 
 typedef Props = {
-	@:editable("Key to be tapped.", null, [
+	@:editable("Key to be tapped.", '', [
 		'', 'backspace', 'delete', 'enter', 'tab', 'escape', 'up', 'down', 'right', 'left', 'home', 'end', 'pageup', 'pagedown', 'f1', 'f2', 'f3', 'f4', 'f5',
 		'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12', 'command', 'alt', 'control', 'shift', 'right_shift', 'space', 'printscreen', 'insert', 'audio_mute',
 		'audio_vol_down', 'audio_vol_up', 'audio_play', 'audio_stop', 'audio_pause', 'audio_prev', 'audio_next', 'audio_rewind', 'audio_forward',
@@ -18,7 +18,7 @@ typedef Props = {
 	var typeString:String;
 	@:editable("Move mouse to position.", null)
 	var moveMouseTo:{x:Int, y:Int};
-	@:editable("Click mouse button.", null, ['left', 'right', 'middle'])
+	@:editable("Click mouse button.", '', ['', 'left', 'right', 'middle'])
 	var mouseClickButton:String;
 	@:editable("Mouse double click. 'mouseClickButton' has to be set to this property work.", false)
 	var mouseDoubleClick:Bool;
@@ -31,7 +31,7 @@ typedef Props = {
 @:name('keymouse')
 class KeyMouse extends IdeckiaAction {
 	public function execute(currentState:ItemState):js.lib.Promise<ItemState> {
-		if (props.keyToTap != null && props.keyToTap != '')
+		if (props.keyToTap != '')
 			RobotJs.keyTap(props.keyToTap.toLowerCase(), props.modifiers.split(',').map(m -> StringTools.trim(m)));
 
 		if (props.typeString != null)
@@ -40,7 +40,7 @@ class KeyMouse extends IdeckiaAction {
 		if (props.moveMouseTo != null)
 			RobotJs.moveMouse(props.moveMouseTo.x, props.moveMouseTo.y);
 
-		if (props.mouseClickButton != null)
+		if (props.mouseClickButton != '')
 			RobotJs.mouseClick(props.mouseClickButton, props.mouseDoubleClick);
 
 		if (props.mouseDrag != null)
