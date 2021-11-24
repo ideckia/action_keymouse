@@ -29,6 +29,7 @@ typedef Props = {
 }
 
 @:name('keymouse')
+@:description('Create hotkeys, write strings, move the mouse... A wrapper for RobotJs')
 class KeyMouse extends IdeckiaAction {
 	public function execute(currentState:ItemState):js.lib.Promise<ItemState> {
 		if (props.keyToTap != '')
