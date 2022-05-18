@@ -1,5 +1,7 @@
 # Action for ideckia: KeyMouse
 
+**DEPRECATED** in favor of [action_keyboard](https://github.com/ideckia/action_keyboard). This library will not work with _ideckia_server_ >=1.4.3 because we updated it to node 16 (and latest RobotJs binaries work with node 8).
+
 ## Definition
 
 Simulates some keyboard and mouse actions. Since this action uses [RobotJs](http://robotjs.io/) internally, potentially this can do anything RobotJs does, but it is not all implemented (yet).
